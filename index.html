@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troostwijk Auction Calculator 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00509E;
+            --secondary: #003F7D;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+        }
+
+        .calculator {
+            background: var(--surface);
+            width: 100%;
+            max-width: 480px;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .preset-header {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--border);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: var(--surface);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.875rem center;
+            background-size: 1.2em;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 80, 158, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 80, 158, 0.25);
+        }
+
+        .results {
+            margin-top: 2rem;
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .total {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 1.25rem;
+        }
+
+        .disclaimer {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                padding: 1.5rem;
+            }
+            
+            .preset-header {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>🏭 Troostwijk Calculator 2025</h1>
+        
+        <div class="preset-header">
+            <div class="input-group">
+                <label for="assetType">Asset Type</label>
+                <select id="assetType" onchange="updatePresets()">
+                    <option value="construction">Construction Equipment</option>
+                    <option value="vehicles">Commercial Vehicles</option>
+                    <option value="realestate">Real Estate</option>
+                    <option value="machinery">Industrial Machinery</option>
+                    <option value="agriculture">Agricultural Equipment</option>
+                    <option value="other">Other Assets</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="country">Country</label>
+                <select id="country" onchange="updatePresets()">
+                    <option value="AT">Austria</option>
+                    <option value="BE">Belgium</option>
+                    <option value="BG">Bulgaria</option>
+                    <option value="HR">Croatia</option>
+                    <option value="CZ">Czech Republic</option>
+                    <option value="DK">Denmark</option>
+                    <option value="FI">Finland</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="HU">Hungary</option>
+                    <option value="IE">Ireland</option>
+                    <option value="IT">Italy</option>
+                    <option value="LV">Latvia</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="PL">Poland</option>
+                    <option value="PT">Portugal</option>
+                    <option value="RO">Romania</option>
+                    <option value="SK">Slovakia</option>
+                    <option value="ES">Spain</option>
+                    <option value="SE">Sweden</option>
+                    <option value="CH">Switzerland</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="bidAmount">Final Bid Amount</label>
+            <input type="number" id="bidAmount" step="0.01" placeholder="Enter amount in €" required>
+        </div>
+
+        <div class="grid">
+            <div class="input-group">
+                <label for="vatBid">Bid VAT (%)</label>
+                <input type="number" id="vatBid" step="0.1">
+            </div>
+
+            <div class="input-group">
+                <label for="auctionFee">Auction Fee (%)</label>
+                <input type="number" id="auctionFee" value="19" step="0.1" readonly>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="vatAuctionFee">Fee VAT (%)</label>
+            <input type="number" id="vatAuctionFee" step="0.1">
+        </div>
+
+        <button onclick="calculateTotal()">Calculate Total</button>
+
+        <div class="results" id="results">
+            <div class="result-item">
+                <span class="currency">Bid VAT</span>
+                <span id="vatBidResult">€0.00</span>
+            </div>
+            <div class="result-item">
+                <span class="currency">Auction Fee</span>
+                <span id="auctionFeeResult">€0.00</span>
+            </div>
+            <div class="result-item">
+                <span class="currency">Fee VAT</span>
+                <span id="vatAuctionFeeResult">€0.00</span>
+            </div>
+            <div class="result-item total">
+                <span>Total Price</span>
+                <span id="totalPrice">€0.00</span>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            * 2025 VAT rates based on current legislation proposals. Troostwijk buyer's fee fixed at 19%.<br>
+            Real estate transactions may have different VAT treatment. Always verify with official sources.
+        </div>
+    </div>
+
+    <script>
+        const presets = {
+            construction: { vatOnFee: true },
+            vehicles: { vatOnFee: true },
+            realestate: { vatOnFee: false },
+            machinery: { vatOnFee: true },
+            agriculture: { vatOnFee: true },
+            other: { vatOnFee: true }
+        };
+
+        const vatRates = {
+            AT: 20,    BE: 21,    BG: 20,    HR: 25,
+            CZ: 21,    DK: 25,    FI: 24,    FR: 20,
+            DE: 19,    HU: 27,    IE: 23,    IT: 22,
+            LV: 21,    NL: 21,    PL: 23,    PT: 23,
+            RO: 19,    SK: 20,    ES: 21,    SE: 25,
+            CH: 8.1
+        };
+
+        function updatePresets() {
+            const assetType = document.getElementById('assetType').value;
+            const country = document.getElementById('country').value;
+            const defaultVat = vatRates[country] || 21;
+            
+            // Update VAT fields with country defaults
+            document.getElementById('vatBid').value = defaultVat;
+            document.getElementById('vatAuctionFee').value = presets[assetType].vatOnFee ? defaultVat : 0;
+        }
+
+        function calculateTotal() {
+            const bidAmount = parseFloat(document.getElementById('bidAmount').value);
+            const vatBid = parseFloat(document.getElementById('vatBid').value) / 100;
+            const auctionFee = 0.19;
+            const vatAuctionFee = parseFloat(document.getElementById('vatAuctionFee').value) / 100;
+
+            const vatBidAmount = bidAmount * vatBid;
+            const auctionFeeAmount = bidAmount * auctionFee;
+            const vatAuctionFeeAmount = auctionFeeAmount * vatAuctionFee;
+            const totalPrice = bidAmount + vatBidAmount + auctionFeeAmount + vatAuctionFeeAmount;
+
+            document.getElementById('vatBidResult').textContent = `€${vatBidAmount.toFixed(2)}`;
+            document.getElementById('auctionFeeResult').textContent = `€${auctionFeeAmount.toFixed(2)}`;
+            document.getElementById('vatAuctionFeeResult').textContent = `€${vatAuctionFeeAmount.toFixed(2)}`;
+            document.getElementById('totalPrice').textContent = `€${totalPrice.toFixed(2)}`;
+            document.getElementById('results').style.display = 'block';
+        }
+
+        // Initialize presets
+        updatePresets();
+    </script>
+</body>
+</html>
